@@ -4,7 +4,7 @@ I am choosing this design over the most basic design, which would be a try-catch
 
 This logger will be a separate class, enforcing the singleton pattern by having a private constructor and a getInstance method as described on page 151. The logger will take in a string message to log.
 
-If we have erroneous user input, such as a character like "." when only the "_" and "|" characters were expected, I will log this, but I will convert this character into a benign value, "_". For too many characters, I'll have no choice but to return "failure".
+If we have erroneous user input, such as a character like "." when only the "_" and "|" characters were expected, I will log this, but I will convert this character into a benign value, " ". For too many characters, I'll have no choice but to return "failure".
 
 If the text file is erroneous, I will log this, and return "failure". The same goes for when more than one digit is garbled (I'll log its location too), extra segements (I'll log which one), and segments in the wrong spot.
 
