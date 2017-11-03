@@ -1,0 +1,13 @@
+I will use a global error logger to log all errors. 
+
+I am choosing this design over the most basic design, which would be a try-catch design. A logger prevents us from aborting for simple errors. Instead, in some cases we can turn those simple errors into benign values and keep going (described later). 
+
+This logger will be a separate class, enforcing the singleton pattern by having a private constructor and a getInstance method as described on page 151. The logger will take in a string message to log.
+
+If we have erroneous user input, such as a character like "." when only the "_" and "|" characters were expected, I will log this, but I will convert this character into a benign value, "_". For too many characters, I'll have no choice but to return "failure".
+
+If the text file is erroneous, I will log this, and return "failure". The same goes for when more than one digit is garbled (I'll log its location too), extra segements (I'll log which one), and segments in the wrong spot.
+
+If more than one solution was found, I will log all solutions, and return "ambiguous". 
+
+For barricades, I will do the above and convert characters to bengign values when needed. I will also log and return "failure" if the input file does not contain 9 numbers, or too many numbers, or not enough lines, etc.  Therefore, I can assume the input is sanitized from here on out, and start calling my private methods. Each private method will do this following as a barricade for its paramaters: validate all input data, check all paramaters for the correct type, length, and range, and double check limits for bounds, all when appropriate. Then, the private methods can work safely on valid data.
