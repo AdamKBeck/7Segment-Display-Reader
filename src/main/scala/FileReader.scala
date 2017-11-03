@@ -24,4 +24,10 @@ case class FileReader() {
 		lines
 	}
 
+
+	/* Constructs numbers out of each line by splitting in groups of 3 */
+	private def linesToNumbers(lines: Array[Array[Char]]): List[Number] = {
+		???
+		//TODO: Finish
+	}
 }
