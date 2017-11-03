@@ -9,15 +9,18 @@ case class FileReader() {
 
 	/* Reads a txt file line by line, and returns each line as an Array
 	 * Named as a function because we are returning the lines of a file */
-	private def lines(fileName: String): Array[String] = {
+	private def lines(fileName: String): Array[Array[Char]] = {
 		val bufferedSource = Source.fromFile(fileName)
 
-		// yield each line to a sequence, then convert that to an array because it may need to be modified
-		val lines =
-			(for (line <- bufferedSource.getLines()) yield line).toArray
+		// Convert the txt file to an array of lines, each line is a character array
+		val lines = (
+			for (line <- bufferedSource.getLines()) yield {
+				line.toCharArray
+			}
+		).toArray
 
 		bufferedSource.close()
-		
+
 		lines
 	}
 
