@@ -1,4 +1,6 @@
-/* This class stores information on parsed numbers from lines from an input text file
+package number_recognition
+
+/* This class stores parsed number segments from lines from an input text file
  *
  * The possible segments are:
  * _
@@ -9,6 +11,6 @@
  *234
  *567
  */
-case class ParsedNumber(private val _segments: Int*) {
+case class ParsedNumber(private val _segments: List[Int]) {
 	def segments = _segments.sorted.toList
 }

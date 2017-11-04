@@ -1,3 +1,5 @@
+package number_recognition
+
 /* This class stores only the valid number 0-9. Each number is a list (because it needs to be ordered) of 7 booleans
  * denoting whether or not the number has a certain segment.
  *
