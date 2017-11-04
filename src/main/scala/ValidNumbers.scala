@@ -17,15 +17,15 @@ case class ValidNumbers() {
 	def numberCache = _numberCache
 
 	private final val _numberCache = Map(
-		0 -> booleanRepresentedNumber(1, 2, 4, 5, 7)
-		1 -> booleanRepresentedNumber(4, 7)
-		2 -> booleanRepresentedNumber(1, 3, 4, 5, 6)
-		3 -> booleanRepresentedNumber(1, 3, 4, 6, 7)
-		4 -> booleanRepresentedNumber(2, 3, 4, 7)
-		5 -> booleanRepresentedNumber(1, 2, 3, 6, 7)
-		6 -> booleanRepresentedNumber(1, 2, 3, 5, 6, 7)
-		7 -> booleanRepresentedNumber(1, 4, 7)
-		8 -> booleanRepresentedNumber(1, 2, 3, 4, 5, 6, 7)
+		0 -> booleanRepresentedNumber(1, 2, 4, 5, 7),
+		1 -> booleanRepresentedNumber(4, 7),
+		2 -> booleanRepresentedNumber(1, 3, 4, 5, 6),
+		3 -> booleanRepresentedNumber(1, 3, 4, 6, 7),
+		4 -> booleanRepresentedNumber(2, 3, 4, 7),
+		5 -> booleanRepresentedNumber(1, 2, 3, 6, 7),
+		6 -> booleanRepresentedNumber(1, 2, 3, 5, 6, 7),
+		7 -> booleanRepresentedNumber(1, 4, 7),
+		8 -> booleanRepresentedNumber(1, 2, 3, 4, 5, 6, 7),
 		9 -> booleanRepresentedNumber(1, 2, 3, 4, 6, 7)
 	)
 
