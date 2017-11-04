@@ -12,7 +12,24 @@ object OpticalRecognition{
 	val groupSize = 3
 
 	def main(args: Array[String]): Unit = {
-		println("Test")
+		val fileName = "hw10a.in.txt"
+
+		val reader = FileReader()
+
+		val lines = reader.lines(fileName)
+
+		val numbers = linesToNumbers(lines)
+
+		val cache = ValidNumbers.numberCache
+
+		for (line <- lines) {
+			println(line.mkString(""))
+		}
+
+		for (parsedNumber <- numbers) {
+			val number = ValidNumbers.booleanSegmentedNumber(parsedNumber.segments)
+			print(cache.getOrElse(number, throw new Exception("cache isn't in here")))
+		}
 	}
 
 
@@ -20,14 +37,14 @@ object OpticalRecognition{
 	def linesToNumbers(lines: Array[Array[Char]]): List[ParsedNumber] = {
 		// TODO: check if lines are all same length, log if needed fill with benign values, etc.
 
-		val top = groupedLine(lines.head, groupSize)
-		val middle = groupedLine(lines(1), groupSize)
-		val bottom = groupedLine(lines.last, groupSize)
+		val topGroup = groupedLine(lines.head, groupSize)
+		val middleGroup = groupedLine(lines(1), groupSize)
+		val bottomGroup = groupedLine(lines.last, groupSize)
 
 		val parsedNumbers = ListBuffer[ParsedNumber]()
 
-		for (topGroup <- top; middleGroup <- middle; bottomGroup <- bottom) {
-			parsedNumbers += parsedNumber(topGroup, middleGroup, bottomGroup)
+		for (i <- topGroup.indices) {
+			parsedNumbers += parsedNumber(topGroup(i), middleGroup(i), bottomGroup(i))
 
 		}
 

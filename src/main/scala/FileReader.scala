@@ -11,8 +11,8 @@ case class FileReader() {
 
 	/* Reads a txt file line by line, and returns each line as an Array
 	 * Named as a function because we are returning the lines of a file */
-	private def lines(fileName: String): Array[Array[Char]] = {
-		val bufferedSource = Source.fromFile(fileName)
+	def lines(fileName: String): Array[Array[Char]] = {
+		val bufferedSource = Source.fromFile("src/"+fileName)
 
 		// Convert the txt file to an array of lines, each line is a character array
 		val lines = (
@@ -25,9 +25,4 @@ case class FileReader() {
 
 		lines
 	}
-
-	/* Groups a given line from the text file by a grouping size, and return a list of these groups.
-	 * Used in linesToNumbers to construct numbers in groups of 3 */
-	private def groupedLine(line: Array[Char], size: Int): List[Array[Char]] = line.grouped(size).toList
-
 }
