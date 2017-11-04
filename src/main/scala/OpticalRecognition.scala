@@ -29,4 +29,8 @@ object OpticalRecognition{
 
 		//TODO: Finish
 	}
+	
+	/* Groups a given line from the text file by a grouping size, and return a list of these groups.
+	 * Used in linesToNumbers to construct numbers in groups of 3 */
+	private def groupedLine(line: Array[Char], size: Int): List[Array[Char]] = line.grouped(size).toList
 }
