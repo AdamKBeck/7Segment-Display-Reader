@@ -11,3 +11,34 @@ If the text file is erroneous, I will log this, and return "failure". The same g
 If more than one solution was found, I will log all solutions, and return "ambiguous". 
 
 For barricades, I will do the above and convert characters to bengign values when needed. I will also log and return "failure" if the input file does not contain 9 numbers, or too many numbers, or not enough lines, etc.  Therefore, I can assume the input is sanitized from here on out, and start calling my private methods. Each private method will do this following as a barricade for its paramaters: validate all input data, check all paramaters for the correct type, length, and range, and double check limits for bounds, all when appropriate. Then, the private methods can work safely on valid data.
+
+
+// Book checklist
+
+1. Bad data: check all bad data through barricade classes. Defined above too.
+
+2. Assertions: No
+
+3. My high level logging and barricade class design specifies techniques for error handling
+
+4. Error handling favors robustness (i.e. converting to a benign value to keep going rather than halting and never computing the problem)
+
+5. Barricades: Yes, the classes
+
+6. Debugging aids: Git, error logging
+
+7. My amount of defensive programming is not too intrusive but not too held back either
+
+8. Error logging is offensive programming
+
+9. Exceptions: None
+
+Debugging aids: Git, error logging
+
+7. My amount of defensive programming is not too intrusive but not too held back either
+
+8. Error logging is offensive programming
+
+9. Exceptions: None
+
+10. Security: Error messages only tell what the user has done to cause the error, and nothing more to aid the attacker. All exceptions are caught, as I don't use exceptions.
