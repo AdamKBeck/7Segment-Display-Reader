@@ -28,12 +28,12 @@ case class ValidNumbers() {
 		8 -> booleanSegmentedNumber(1, 2, 3, 4, 5, 6, 7),
 		9 -> booleanSegmentedNumber(1, 2, 3, 4, 6, 7)
 	)
-	
+
 	/* Returns a 7-segmented number represented as a list of size 7 of booleans denoting which segments are on */
-	private def booleanSegmentedNumber(ints:Int*): List[Boolean] = {
+	private def booleanSegmentedNumber(segments:Int*): List[Boolean] = {
 		val number= Array[Boolean](false, false, false, false, false, false, false)
 
-		for (i <- ints) {
+		for (i <- segments) {
 			number(i) = true
 		}
 

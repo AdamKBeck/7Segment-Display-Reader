@@ -24,10 +24,8 @@ case class FileReader() {
 		lines
 	}
 
+	/* Groups a given line from the text file by a grouping size, and return a list of these groups.
+	 * Used in linesToNumbers to construct numbers in groups of 3 */
+	private def groupedLine(line: Array[Char], size: Int): List[Array[Char]] = line.grouped(size).toList
 
-	/* Constructs numbers out of each line by splitting in groups of 3 */
-	private def linesToNumbers(lines: Array[Array[Char]]): List[ParsedNumber] = {
-		???
-		//TODO: Finish
-	}
 }

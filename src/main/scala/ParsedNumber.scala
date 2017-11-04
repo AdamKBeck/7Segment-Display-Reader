@@ -9,9 +9,6 @@
  *234
  *567
  */
-case class ParsedNumber() {
-
-
-
-
+case class ParsedNumber(private val _segments: Int*) {
+	def segments = _segments.sorted.toList
 }
