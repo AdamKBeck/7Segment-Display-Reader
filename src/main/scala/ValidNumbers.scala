@@ -22,7 +22,7 @@ object ValidNumbers {
 	def numberCache = _numberCache
 
 	private final val _numberCache = Map(
-		booleanSegmentedNumber(List(1, 2, 4, 5, 7)) -> 0,
+		booleanSegmentedNumber(List(1, 2, 4, 5, 6, 7)) -> 0,
 		booleanSegmentedNumber(List(4, 7)) -> 1,
 		booleanSegmentedNumber(List(1, 3, 4, 5, 6)) -> 2,
 		booleanSegmentedNumber(List(1, 3, 4, 6, 7)) -> 3,

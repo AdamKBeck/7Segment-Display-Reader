@@ -8,11 +8,38 @@ case class OpticalRecognition() {
 
 }
 
-object OpticalRecognition{
+object OpticalRecognition {
 	val groupSize = 3
 
 	def main(args: Array[String]): Unit = {
-		val fileName = "hw10a.in.txt"
+		var fileName = "hw10a.in.txt"
+		constructNumbersFromFile(fileName) match {
+			case Right(s) => println(s)
+			case Left(list) => println(list.mkString(""))
+		}
+		fileName = "hw10b.in.txt"
+		constructNumbersFromFile(fileName) match {
+			case Right(s) => println(s)
+			case Left(list) => println(list.mkString(""))
+		}
+		fileName = "hw10c.in.txt"
+		constructNumbersFromFile(fileName) match {
+			case Right(s) => println(s)
+			case Left(list) => println(list.mkString(""))
+		}
+		fileName = "hw10d.in.txt"
+		constructNumbersFromFile(fileName) match {
+			case Right(s) => println(s)
+			case Left(list) => println(list.mkString(""))
+		}
+	}
+
+	/* Reads the input file and constructs numbers from the segments in the file.
+	 * Named as a procedure as this bulk and primary purpose of this function is to parse/decode the numbers.
+	 * Finally, after all of this, we return the number, or a string representing the type of failure
+	 */
+
+	private def constructNumbersFromFile(fileName: String): Either[List[Int], String] = {
 
 		val reader = FileReader()
 
@@ -26,12 +53,34 @@ object OpticalRecognition{
 			println(line.mkString(""))
 		}
 
+		val numbersFromFile = ListBuffer[Int]()
+
 		for (parsedNumber <- numbers) {
 			val number = ValidNumbers.booleanSegmentedNumber(parsedNumber.segments)
-			print(cache.getOrElse(number, throw new Exception("cache isn't in here")))
-		}
-	}
+			// Filter the cache against the segements we have, and see what remains in the cache
+			val keys = cache.keySet
 
+			val possibleMatch = cache.getOrElse(number, None)
+
+			if (possibleMatch == None) {
+				var remaining = keys.filter(k => isSegmentSubset(number, k))
+				if (remaining.size > 1) {
+					// Too many solutions
+					return Right("ambiguous")
+				}
+				else {
+					// No solution
+					return Right("failure")
+				}
+			}
+
+			else {
+				numbersFromFile += cache(number)
+			}
+		}
+
+		Left(numbersFromFile.toList)
+	}
 
 	/* Constructs numbers out of each line by splitting in groups of 3 */
 	def linesToNumbers(lines: Array[Array[Char]]): List[ParsedNumber] = {
@@ -81,5 +130,19 @@ object OpticalRecognition{
 	 * Method written in ternary syntax style https://alvinalexander.com/scala/scala-ternary-operator-syntax */
 	private def indexToSegmentNumber(index: Int): Int = if (index > 2) index - 1 else index
 
+
+	/* Determines if a parsedNumber is a segment sebset of validNumber, that is, if
+	 * all the true values in parsedNumber appear in validNumber */
+	private def isSegmentSubset(parsedNumber: List[Boolean], validNumber: List[Boolean]): Boolean = {
+		var isSubset = true
+
+		for (i <- parsedNumber.indices) {
+			if (parsedNumber(i) && !validNumber(i)) {
+				isSubset = false
+			}
+		}
+
+		isSubset
+	}
 
 }
