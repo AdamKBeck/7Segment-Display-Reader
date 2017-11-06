@@ -6,6 +6,12 @@ import java.nio.file._
  * If an error was severe, the program returns failure, as a severe error violates the many assumptions we hold for the
  * input file as described in the homework pdf */
 case class Logger private() {
+	private var _severeError = false
+
+	def severeError = _severeError
+
+	def severeError_(value: Boolean):Unit = _severeError = value
+
 	def log(error: String): Unit = {
 		val pw = new PrintWriter(new FileWriter("src/log.txt", true))
 		pw.write(error)
@@ -20,5 +26,5 @@ case class Logger private() {
 object Logger {
 	private val _instance = Logger()
 
-	def getInstance = _instance
+	def instance = _instance
 }

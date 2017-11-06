@@ -14,8 +14,6 @@ object OpticalRecognition {
 	def main(args: Array[String]): Unit = {
 		// Check severity and things
 
-
-
 		var	fileName = "hw10a.in.txt"
 		constructNumbersFromFile(fileName) match {
 			case Right(s) => println(s)
