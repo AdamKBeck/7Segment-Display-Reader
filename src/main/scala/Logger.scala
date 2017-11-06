@@ -10,11 +10,11 @@ case class Logger private() {
 
 	def severeError = _severeError
 
-	def severeError_(value: Boolean):Unit = _severeError = value
+	def severeError_= (value: Boolean):Unit = _severeError = value
 
 	def log(error: String): Unit = {
 		val pw = new PrintWriter(new FileWriter("src/log.txt", true))
-		pw.write(error)
+		pw.write(error + "\n")
 		pw.close()
 	}
 
@@ -27,4 +27,6 @@ object Logger {
 	private val _instance = Logger()
 
 	def instance = _instance
+
+	def markSevereError(): Unit = instance.severeError = true
 }

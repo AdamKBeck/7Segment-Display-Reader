@@ -12,5 +12,5 @@ package number_recognition
  *567
  */
 case class ParsedNumber(private val _segments: List[Int]) {
-	def segments = _segments.sorted.toList
+	def segments = _segments.sorted
 }

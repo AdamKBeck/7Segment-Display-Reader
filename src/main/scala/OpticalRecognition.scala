@@ -13,23 +13,8 @@ object OpticalRecognition {
 
 	def main(args: Array[String]): Unit = {
 		// Check severity and things
-
+		// TODO: Take standard input and write to file, then read it
 		var	fileName = "hw10a.in.txt"
-		constructNumbersFromFile(fileName) match {
-			case Right(s) => println(s)
-			case Left(list) => println(list.mkString(""))
-		}
-		fileName = "hw10b.in.txt"
-		constructNumbersFromFile(fileName) match {
-			case Right(s) => println(s)
-			case Left(list) => println(list.mkString(""))
-		}
-		fileName = "hw10c.in.txt"
-		constructNumbersFromFile(fileName) match {
-			case Right(s) => println(s)
-			case Left(list) => println(list.mkString(""))
-		}
-		fileName = "hw10d.in.txt"
 		constructNumbersFromFile(fileName) match {
 			case Right(s) => println(s)
 			case Left(list) => println(list.mkString(""))
@@ -99,18 +84,49 @@ object OpticalRecognition {
 		// TODO: check if lines are all same length, log if needed fill with benign values, etc.
 		// TODO: Check all the 5 conditions
 
-		val topGroup = groupedLine(lines.head, groupSize)
-		val middleGroup = groupedLine(lines(1), groupSize)
-		val bottomGroup = groupedLine(lines.last, groupSize)
 
-		val parsedNumbers = ListBuffer[ParsedNumber]()
 
-		for (i <- topGroup.indices) {
-			parsedNumbers += parsedNumber(topGroup(i), middleGroup(i), bottomGroup(i))
+		if (areLinesValidSize(lines)) {
+			val topGroup = groupedLine(lines.head, groupSize)
+			val middleGroup = groupedLine(lines(1), groupSize)
+			val bottomGroup = groupedLine(lines.last, groupSize)
 
+			val parsedNumbers = ListBuffer[ParsedNumber]()
+
+			for (i <- topGroup.indices) {
+				parsedNumbers += parsedNumber(topGroup(i), middleGroup(i), bottomGroup(i))
+
+			}
+
+			parsedNumbers.toList
 		}
 
-		parsedNumbers.toList
+		else {
+			Logger.instance.log("Lines are not 3 lines with 27 characters each")
+			Logger.markSevereError()
+			Nil
+		}
+	}
+
+	// Determines whether lines are valid, logging the instances where they are not
+	def areLinesValidSize(lines: Array[Array[Char]]): Boolean = {
+		if (lines.length != 3) {
+			Logger.instance.log("There are not 3 lines given")
+			Logger.markSevereError()
+			false
+		}
+
+		else {
+			for (line <- lines) {
+				if (line.length != 27) {
+					Logger.instance.log("A line length was not of size 27, line: " + lines.indexOf(line))
+					Logger.markSevereError()
+					return false
+				}
+			}
+
+			true
+		}
 	}
 
 	/* Groups a given line from the text file by a grouping size, and return a list of these groups.
@@ -157,5 +173,4 @@ object OpticalRecognition {
 
 		isSubset
 	}
-
 }

@@ -12,17 +12,26 @@ case class FileReader() {
 	/* Reads a txt file line by line, and returns each line as an Array
 	 * Named as a function because we are returning the lines of a file */
 	def lines(fileName: String): Array[Array[Char]] = {
-		val bufferedSource = Source.fromFile("src/"+fileName)
+		if (new java.io.File("src/"+fileName).exists) {
+			val bufferedSource = Source.fromFile("src/"+fileName)
 
-		// Convert the txt file to an array of lines, each line is a character array
-		val lines = (
-			for (line <- bufferedSource.getLines()) yield {
-				line.toCharArray
-			}
-		).toArray
+			// Convert the txt file to an array of lines, each line is a character array
+			val lines = (
+				for (line <- bufferedSource.getLines()) yield {
+					line.toCharArray
+				}
+			).toArray
 
-		bufferedSource.close()
+			bufferedSource.close()
 
-		lines
+			lines
+		}
+
+		else {
+			Logger.instance.log("File not found: " + fileName)
+			Logger.markSevereError()
+			Array()
+		}
+
 	}
 }
