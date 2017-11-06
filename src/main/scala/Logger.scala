@@ -29,4 +29,5 @@ object Logger {
 	def instance = _instance
 
 	def markSevereError(): Unit = instance.severeError = true
+
 }

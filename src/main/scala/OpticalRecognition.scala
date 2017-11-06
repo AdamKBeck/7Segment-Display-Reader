@@ -13,6 +13,8 @@ object OpticalRecognition {
 
 	def main(args: Array[String]): Unit = {
 		// Check severity and things
+		Logger.instance.delete()
+
 		// TODO: Take standard input and write to file, then read it
 		var	fileName = "hw10a.in.txt"
 		constructNumbersFromFile(fileName) match {
@@ -80,13 +82,12 @@ object OpticalRecognition {
 	}
 
 	/* Constructs numbers out of each line by splitting in groups of 3 */
-	def linesToNumbers(lines: Array[Array[Char]]): List[ParsedNumber] = {
-		// TODO: check if lines are all same length, log if needed fill with benign values, etc.
+	private def linesToNumbers(lines: Array[Array[Char]]): List[ParsedNumber] = {
 		val benignLines = correctBenignErrorsIn(lines.clone)
 
-		val topGroup = groupedLine(lines.head, groupSize)
-		val middleGroup = groupedLine(lines(1), groupSize)
-		val bottomGroup = groupedLine(lines.last, groupSize)
+		val topGroup = groupedLine(benignLines.head, groupSize)
+		val middleGroup = groupedLine(benignLines(1), groupSize)
+		val bottomGroup = groupedLine(benignLines.last, groupSize)
 
 		val parsedNumbers = ListBuffer[ParsedNumber]()
 
@@ -95,6 +96,31 @@ object OpticalRecognition {
 		}
 
 		parsedNumbers.toList
+	}
+
+	/* Corrects the benign errors in the lines. A benign error is if a non |, _, or space is encountered.
+	 * For robustness, this character will change into a space, but the error logger will make note of this.
+	 * Named after as a procedure as the main goal of this method is to correct the benign errors in the lines.
+	 * This is more apparent if there is deemed to be many types of benign errors. If this is true, this method
+	 * will be extremely long, consisting of correcting for these errors, hence why it is named procedurally */
+	private def correctBenignErrorsIn(lines: Array[Array[Char]]): Array[Array[Char]] = {
+		val linesCopy = lines.clone
+
+		val validCharacters = " |_"
+
+		linesCopy.map(line => {
+			line.map(char => {
+				if (!validCharacters.contains(char)){
+					Logger.instance.log("Benign value " + char.toString + " was changed to a space")
+					' '
+				}
+				else {
+					char
+				}
+			})
+		})
+
+		linesCopy
 	}
 
 	/* Groups a given line from the text file by a grouping size, and return a list of these groups.
@@ -121,7 +147,7 @@ object OpticalRecognition {
 	}
 
 	// Logs if a segment index is in an invalid spot
-	def checkSegmentPosition(index: Int): Unit = {
+	private def checkSegmentPosition(index: Int): Unit = {
 		if (index == 0 || index == 2) {
 			Logger.instance.log("A segment is in the wrong spot at an index of: " + index)
 			Logger.markSevereError()
