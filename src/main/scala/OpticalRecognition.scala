@@ -95,6 +95,7 @@ object OpticalRecognition {
 	/* Constructs numbers out of each line by splitting in groups of 3 */
 	def linesToNumbers(lines: Array[Array[Char]]): List[ParsedNumber] = {
 		// TODO: check if lines are all same length, log if needed fill with benign values, etc.
+		// TODO: Check all the 5 conditions
 
 		val topGroup = groupedLine(lines.head, groupSize)
 		val middleGroup = groupedLine(lines(1), groupSize)
