@@ -12,7 +12,7 @@ object OpticalRecognition {
 	val groupSize = 3
 
 	def main(args: Array[String]): Unit = {
-		var fileName = "hw10a.in.txt"
+		var	fileName = "hw10a.in.txt"
 		constructNumbersFromFile(fileName) match {
 			case Right(s) => println(s)
 			case Left(list) => println(list.mkString(""))
@@ -54,6 +54,8 @@ object OpticalRecognition {
 		}
 
 		val numbersFromFile = ListBuffer[Int]()
+		var defectedCount = 0
+		var ambiguousCount = 0
 
 		for (parsedNumber <- numbers) {
 			val number = ValidNumbers.booleanSegmentedNumber(parsedNumber.segments)
@@ -63,23 +65,31 @@ object OpticalRecognition {
 			val possibleMatch = cache.getOrElse(number, None)
 
 			if (possibleMatch == None) {
+				defectedCount += 1
+
 				var remaining = keys.filter(k => isSegmentSubset(number, k))
 				if (remaining.size > 1) {
-					// Too many solutions
-					return Right("ambiguous")
+					ambiguousCount += 1
 				}
 				else {
-					// No solution
-					return Right("failure")
+					numbersFromFile += cache(remaining.head)
 				}
 			}
-
 			else {
 				numbersFromFile += cache(number)
 			}
 		}
 
-		Left(numbersFromFile.toList)
+		if (defectedCount >= 2) {
+			Right("failure")
+		}
+		else if (ambiguousCount == 1) {
+			Right("ambiguous")
+		}
+		else {
+
+			Left(numbersFromFile.toList)
+		}
 	}
 
 	/* Constructs numbers out of each line by splitting in groups of 3 */
