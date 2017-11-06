@@ -82,10 +82,6 @@ object OpticalRecognition {
 	/* Constructs numbers out of each line by splitting in groups of 3 */
 	def linesToNumbers(lines: Array[Array[Char]]): List[ParsedNumber] = {
 		// TODO: check if lines are all same length, log if needed fill with benign values, etc.
-		// TODO: Check all the 5 conditions
-
-
-
 		if (areLinesValidSize(lines)) {
 			val topGroup = groupedLine(lines.head, groupSize)
 			val middleGroup = groupedLine(lines(1), groupSize)
@@ -143,7 +139,8 @@ object OpticalRecognition {
 		}
 
 		for ((char, index) <- charsWithIndices) {
-			if (isValid(char)) {
+			if (isSegmentSymbolValid(char)) {
+				checkSegmentPosition(index)
 				segments += indexToSegmentNumber(index)
 			}
 		}
@@ -151,8 +148,16 @@ object OpticalRecognition {
 		ParsedNumber(segments.toList)
 	}
 
+	// Logs if a segment index is in an invalid spot
+	def checkSegmentPosition(index: Int): Unit = {
+		if (index == 0 || index == 2) {
+			Logger.instance.log("A segment is in the wrong spot at an index of: " + index)
+			Logger.markSevereError()
+		}
+	}
+
 	// Determines if a character from the input file is a valid segment character
-	private def isValid(char: Char): Boolean = char == '|' || char == '_'
+	private def isSegmentSymbolValid(char: Char): Boolean = char == '|' || char == '_'
 
 
 	/* Converts the index a character was found in a top, middle, bottom group to the correct segment index
