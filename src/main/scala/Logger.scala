@@ -25,6 +25,7 @@ case class Logger private() {
 
 object Logger {
 	private val _instance = Logger()
+	instance.delete()
 
 	def instance = _instance
 

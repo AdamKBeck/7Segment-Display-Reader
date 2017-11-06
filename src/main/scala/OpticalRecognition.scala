@@ -12,30 +12,17 @@ object OpticalRecognition {
 	val groupSize = 3
 
 	def main(args: Array[String]): Unit = {
-		// Check severity and things
-		Logger.instance.delete()
-
 		// TODO: Take standard input and write to file, then read it
-		var	fileName = "hw10a.in.txt"
-		constructNumbersFromFile(fileName) match {
-			case Right(s) => println(s)
-			case Left(list) => println(list.mkString(""))
-		}
-		fileName = "hw10b.in.txt"
-		constructNumbersFromFile(fileName) match {
-			case Right(s) => println(s)
-			case Left(list) => println(list.mkString(""))
-		}
-		fileName = "hw10c.in.txt"
-		constructNumbersFromFile(fileName) match {
-			case Right(s) => println(s)
-			case Left(list) => println(list.mkString(""))
-		}
-		fileName = "hw10d.in.txt"
-		constructNumbersFromFile(fileName) match {
-			case Right(s) => println(s)
-			case Left(list) => println(list.mkString(""))
-		}
+		val	fileName = "hw10a.in.txt"
+		val lines = Validator.instance.lines(fileName)
+
+
+
+
+//		constructNumbersFromFile(fileName) match {
+//			case Right(s) => println(s)
+//			case Left(list) => println(list.mkString(""))
+//		}
 	}
 
 	/* Reads the input file and constructs numbers from the segments in the file.
@@ -45,7 +32,7 @@ object OpticalRecognition {
 
 	private def constructNumbersFromFile(fileName: String): Either[List[Int], String] = {
 		// Read file and parse numbers
-		val reader = FileReader()
+		val reader = FileReader.instance
 		val lines = reader.lines(fileName)
 		val numbers = linesToNumbers(lines)
 

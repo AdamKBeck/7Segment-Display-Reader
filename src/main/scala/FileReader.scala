@@ -7,31 +7,28 @@ package number_recognition
 
 import scala.io.Source
 
-case class FileReader() {
+case class FileReader private() {
 
 	/* Reads a txt file line by line, and returns each line as an Array
 	 * Named as a function because we are returning the lines of a file */
 	def lines(fileName: String): Array[Array[Char]] = {
-		if (new java.io.File("src/"+fileName).exists) {
-			val bufferedSource = Source.fromFile("src/"+fileName)
+		val bufferedSource = Source.fromFile("src/"+fileName)
 
-			// Convert the txt file to an array of lines, each line is a character array
-			val lines = (
-				for (line <- bufferedSource.getLines()) yield {
-					line.toCharArray
-				}
+		// Convert the txt file to an array of lines, each line is a character array
+		val lines = (
+			for (line <- bufferedSource.getLines()) yield {
+				line.toCharArray
+			}
 			).toArray
 
-			bufferedSource.close()
+		bufferedSource.close()
 
-			lines
-		}
-
-		else {
-			Logger.instance.log("File not found: " + fileName)
-			Logger.markSevereError()
-			Array()
-		}
-
+		lines
 	}
+}
+
+object FileReader {
+	private val _instance = FileReader()
+
+	def instance = _instance
 }
