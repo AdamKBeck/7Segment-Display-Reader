@@ -82,47 +82,19 @@ object OpticalRecognition {
 	/* Constructs numbers out of each line by splitting in groups of 3 */
 	def linesToNumbers(lines: Array[Array[Char]]): List[ParsedNumber] = {
 		// TODO: check if lines are all same length, log if needed fill with benign values, etc.
-		if (areLinesValidSize(lines)) {
-			val topGroup = groupedLine(lines.head, groupSize)
-			val middleGroup = groupedLine(lines(1), groupSize)
-			val bottomGroup = groupedLine(lines.last, groupSize)
+		val benignLines = correctBenignErrorsIn(lines.clone)
 
-			val parsedNumbers = ListBuffer[ParsedNumber]()
+		val topGroup = groupedLine(lines.head, groupSize)
+		val middleGroup = groupedLine(lines(1), groupSize)
+		val bottomGroup = groupedLine(lines.last, groupSize)
 
-			for (i <- topGroup.indices) {
-				parsedNumbers += parsedNumber(topGroup(i), middleGroup(i), bottomGroup(i))
+		val parsedNumbers = ListBuffer[ParsedNumber]()
 
-			}
-
-			parsedNumbers.toList
+		for (i <- topGroup.indices) {
+			parsedNumbers += parsedNumber(topGroup(i), middleGroup(i), bottomGroup(i))
 		}
 
-		else {
-			Logger.instance.log("Lines are not 3 lines with 27 characters each")
-			Logger.markSevereError()
-			Nil
-		}
-	}
-
-	// Determines whether lines are valid, logging the instances where they are not
-	def areLinesValidSize(lines: Array[Array[Char]]): Boolean = {
-		if (lines.length != 3) {
-			Logger.instance.log("There are not 3 lines given")
-			Logger.markSevereError()
-			false
-		}
-
-		else {
-			for (line <- lines) {
-				if (line.length != 27) {
-					Logger.instance.log("A line length was not of size 27, line: " + lines.indexOf(line))
-					Logger.markSevereError()
-					return false
-				}
-			}
-
-			true
-		}
+		parsedNumbers.toList
 	}
 
 	/* Groups a given line from the text file by a grouping size, and return a list of these groups.
