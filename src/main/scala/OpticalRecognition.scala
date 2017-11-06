@@ -12,6 +12,10 @@ object OpticalRecognition {
 	val groupSize = 3
 
 	def main(args: Array[String]): Unit = {
+		// Check severity and things
+
+
+
 		var	fileName = "hw10a.in.txt"
 		constructNumbersFromFile(fileName) match {
 			case Right(s) => println(s)
@@ -32,10 +36,6 @@ object OpticalRecognition {
 			case Right(s) => println(s)
 			case Left(list) => println(list.mkString(""))
 		}
-
-		Logger.log("test")
-		Logger.log("test")
-		Logger.delete("log.txt")
 	}
 
 	/* Reads the input file and constructs numbers from the segments in the file.
