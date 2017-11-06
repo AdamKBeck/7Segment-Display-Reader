@@ -32,6 +32,10 @@ object OpticalRecognition {
 			case Right(s) => println(s)
 			case Left(list) => println(list.mkString(""))
 		}
+
+		Logger.log("test")
+		Logger.log("test")
+		Logger.delete("log.txt")
 	}
 
 	/* Reads the input file and constructs numbers from the segments in the file.
