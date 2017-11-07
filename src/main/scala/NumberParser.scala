@@ -47,7 +47,7 @@ case class NumberParser private(){
 	// Logs if a segment index is in an invalid spot
 	private def checkSegmentPosition(index: Int): Unit = {
 		if (index == 0 || index == 2) {
-			Logger.instance.log("A segment is in the wrong spot at an index of: " + index)
+			Logger.instance.log("A segment is in the wrong spot at an index of: " + index + ". Error: Extra segment(s)")
 			Logger.markSevereError()
 		}
 	}

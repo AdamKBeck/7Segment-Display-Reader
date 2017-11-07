@@ -1,6 +1,9 @@
 package number_recognition
 
 case class Validator private(){
+	private val _lineWidth = 27
+	def lineWidth = _lineWidth
+
 	/* Validates that the fileName is a valid file, and if so, gets the lines of the file
 	 * Otherwise, mark a severe error, and return an array of no lines, as no file was found
 	 */
@@ -36,7 +39,7 @@ case class Validator private(){
 			}
 
 			else {
-				Logger.instance.log("Lines are all not length 27")
+				Logger.instance.log("Lines are all not length 27. Error: Not 9 digits long")
 				Logger.markSevereError()
 				Nil
 			}
@@ -52,17 +55,14 @@ case class Validator private(){
 	/* Helper method to determine if a set of lines are rectangular, that is,
 	 * If every line is of the same width */
 	private def isValidWidth(benignLines: Array[Array[Char]]): Boolean = {
-		val headWidth = benignLines.head.length
-		var isSameWidth = true
-
-		for (line <- benignLines.tail) {
-			if (line.length != headWidth) {
-				isSameWidth = false
+		val width = lineWidth
+		for (line <- benignLines) {
+			if (line.length != width){
+				return false
 
 			}
 		}
-
-		isSameWidth
+		true
 	}
 
 	/* Reads the input file and constructs numbers from the segments in the file.

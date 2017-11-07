@@ -11,7 +11,7 @@ case class OpticalRecognition() {
 object OpticalRecognition {
 	def main(args: Array[String]): Unit = {
 		// TODO: Take standard input and write to file, then read it
-		val	fileName = "hw10a.in.txt"
+		val	fileName = "hw10d.in.txt"
 		val lines = Validator.instance.lines(fileName)
 		val benignLines = Validator.instance.benignLines(lines)
 
@@ -28,6 +28,4 @@ object OpticalRecognition {
 			case Left(list) => println(list.mkString(""))
 		}
 	}
-
-
 }
