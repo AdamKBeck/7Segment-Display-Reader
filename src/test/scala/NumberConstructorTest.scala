@@ -182,7 +182,6 @@ class NumberConstructorTest extends FlatSpec with PrivateMethodTester {
 
 	// Structured basis, first if statement false
 	// Boundary: defectedCount >= 2
-	behavior of "opticalRecognitionOutcome"
 	it should "test non severe error, second if statement false, upper boundary" in {
 		val opticalRecognitionOutcome = PrivateMethod[Either[List[Int], String]]('opticalRecognitionOutcome)
 		val result = NumberConstructor.instance.invokePrivate(opticalRecognitionOutcome(false, 3, 0, ListBuffer[Int]()))
@@ -191,7 +190,6 @@ class NumberConstructorTest extends FlatSpec with PrivateMethodTester {
 	}
 
 	// Boundary: defectedCount == 2
-	behavior of "opticalRecognitionOutcome"
 	it should "test non severe error, second if statement false, equal boundary" in {
 		val opticalRecognitionOutcome = PrivateMethod[Either[List[Int], String]]('opticalRecognitionOutcome)
 		val result = NumberConstructor.instance.invokePrivate(opticalRecognitionOutcome(false, 2, 0, ListBuffer[Int]()))
@@ -202,7 +200,6 @@ class NumberConstructorTest extends FlatSpec with PrivateMethodTester {
 	// Structured basis, second if statement false
 	// Boundary: defectedCount < 2
 	// Boundary: ambiguousCount == 1
-	behavior of "opticalRecognitionOutcome"
 	it should "test non severe error, second if statement false, lesser < 2" in {
 		val opticalRecognitionOutcome = PrivateMethod[Either[List[Int], String]]('opticalRecognitionOutcome)
 		val result = NumberConstructor.instance.invokePrivate(opticalRecognitionOutcome(false, 1, 1, ListBuffer[Int]()))
@@ -212,7 +209,6 @@ class NumberConstructorTest extends FlatSpec with PrivateMethodTester {
 
 	// Structured basis, third if statement is false
 	// Boundary: ambiguousCount > 1
-	behavior of "opticalRecognitionOutcome"
 	it should "test non severe error, third if statement false, greter boundary" in {
 		val opticalRecognitionOutcome = PrivateMethod[Either[List[Int], String]]('opticalRecognitionOutcome)
 		val result = NumberConstructor.instance.invokePrivate(opticalRecognitionOutcome(false, 1, 2, ListBuffer[Int]()))
@@ -222,7 +218,6 @@ class NumberConstructorTest extends FlatSpec with PrivateMethodTester {
 
 	// Structured basis, third if statement is false
 	// Boundary: ambiguousCount < 1
-	behavior of "opticalRecognitionOutcome"
 	it should "test non severe error, third if statement false, leser boundary" in {
 		val opticalRecognitionOutcome = PrivateMethod[Either[List[Int], String]]('opticalRecognitionOutcome)
 		val result = NumberConstructor.instance.invokePrivate(opticalRecognitionOutcome(false, 1, 0, ListBuffer[Int]()))

@@ -1,7 +1,9 @@
+Benign value t was changed to a space
+Benign value . was changed to a space
+Benign value e was changed to a space
+Benign value s was changed to a space
+Benign value t was changed to a space
 File not found: testFile.txt
-File not found: input.txt
-There are not 3 lines in the input
-No benign lines could be formed from the input
 stuff
 Benign value . was changed to a space
 File not found: thisFileDoesntExist.txt
