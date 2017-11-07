@@ -149,6 +149,7 @@ class NumberParserTest extends FlatSpec with PrivateMethodTester{
 
 	// Structured basis: nominal case
 	it should "test nominally" in {
+		Thread.sleep(500) // to avoid collisions with file I/O from other tests
 		Logger.instance.severeError = false
 
 		val checkSegmentPosition = PrivateMethod[Unit]('checkSegmentPosition)
