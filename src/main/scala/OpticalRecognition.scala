@@ -42,6 +42,11 @@ object OpticalRecognition {
 		val parsedNumbers = Validator.instance.parsedNumbers(benignLines)
 		val output = Validator.instance.constructNumbersFrom(parsedNumbers)
 
+		printResult(output)
+
+	}
+
+	private def printResult(output: Either[List[Int], String]): Unit = {
 		output match {
 			case Right(s) => {
 				println(s)
@@ -52,5 +57,6 @@ object OpticalRecognition {
 				Logger.instance.log(list.mkString(""), "output.txt")
 			}
 		}
+
 	}
 }
