@@ -4,9 +4,9 @@ import org.scalatest.FlatSpec
 import java.util.Random
 import java.nio.file._
 
+//NOTE: this needs to be run standalone from the other tests, as the file read/write is having collisions
 class StressTest extends FlatSpec {
 
-	// Add benign errors to a valid input.
 	behavior of "stress test"
 	it should "pass benign value erorrs, throw errors on invalid segment positions" in {
 		Thread.sleep(3000)
