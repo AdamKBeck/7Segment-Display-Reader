@@ -14,7 +14,6 @@ class ParsedNumberTest extends FlatSpec {
 	}
 
 	// Good data: normal/max configuration: 7 segments
-	behavior of "segments"
 	it should "test normal/max config" in {
 		val list = List(9,8,7,6,5,4,3,2,1)
 		val number = ParsedNumber(list)
@@ -23,7 +22,6 @@ class ParsedNumberTest extends FlatSpec {
 	}
 
 	// Bad data: Nil segments list
-	behavior of "segments"
 	it should "test with a Nil segment list" in {
 		val list = Nil
 		val number = ParsedNumber(list)

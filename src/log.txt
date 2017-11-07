@@ -1,5 +1,10 @@
+File not found: input.txt
 File not found: testFile.txt
+There are not 3 lines in the input
+No benign lines could be formed from the input
+stuff
 File not found: thisFileDoesntExist.txt
+Benign value . was changed to a space
 Benign value t was changed to a space
 Benign value t was changed to a space
 Benign value e was changed to a space

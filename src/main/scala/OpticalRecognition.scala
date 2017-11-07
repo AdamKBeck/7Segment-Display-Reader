@@ -11,16 +11,25 @@ case class OpticalRecognition() {
 
 object OpticalRecognition {
 	def main(args: Array[String]): Unit = {
-		val stdIn = new Scanner(new BufferedInputStream(System.in))
-		println("Enter your input, then type 'quit' to start the optical recognition process")
 
-		breakable {
-			while (true) {
-				val line = stdIn.nextLine()
-				if (line == "quit") {
-					break
+		if (args.length == 0) {
+			val stdIn = new Scanner(new BufferedInputStream(System.in))
+			println("Enter your input, then type 'quit' to start the optical recognition process")
+
+			breakable {
+				while (true) {
+					val line = stdIn.nextLine()
+					if (line == "quit") {
+						break
+					}
+
+					Logger.instance.log(line, "input.txt")
 				}
+			}
+		}
 
+		else {
+			for (line <- args) {
 				Logger.instance.log(line, "input.txt")
 			}
 		}
