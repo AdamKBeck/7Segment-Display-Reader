@@ -28,11 +28,6 @@ object OpticalRecognition {
 		val lines = Validator.instance.lines("input.txt")
 		val benignLines = Validator.instance.benignLines(lines)
 
-
-		for (line <- benignLines) {
-			println(line.mkString(""))
-		}
-
 		val parsedNumbers = Validator.instance.parsedNumbers(benignLines)
 		val output = Validator.instance.constructNumbersFrom(parsedNumbers)
 
