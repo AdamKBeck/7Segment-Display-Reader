@@ -12,20 +12,29 @@ case class Logger private() {
 
 	def severeError_= (value: Boolean):Unit = _severeError = value
 
-	def log(error: String): Unit = {
-		val pw = new PrintWriter(new FileWriter("src/log.txt", true))
-		pw.write(error + "\n")
+	def log(message: String, fileName:String = "log.txt"): Unit = {
+		val pw = new PrintWriter(new FileWriter("src/" + fileName, true))
+		pw.write(message + "\n")
 		pw.close()
 	}
 
-	def delete(): Unit = {
-		Files.deleteIfExists(Paths.get("src/log.txt"))
+	def delete(fileNames: Set[String]): Unit = {
+		for (name <- fileNames) {
+			Files.deleteIfExists(Paths.get("src/" + name))
+		}
+
+	}
+
+	def createFile(input: List[String], fileName: String): Unit = {
+		for (line <- input) {
+			log(line, fileName)
+		}
 	}
 }
 
 object Logger {
 	private val _instance = Logger()
-	instance.delete()
+	instance.delete(Set("log.txt", "input.txt", "output.txt"))
 
 	def instance = _instance
 

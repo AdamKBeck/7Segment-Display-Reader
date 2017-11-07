@@ -20,7 +20,7 @@ case class Validator private(){
 
 	// Returns the benign lines of the txt file, that is, the benign erros in the lines are corrected for
 	def benignLines(lines: Array[Array[Char]]): Array[Array[Char]] = {
-		if (lines.length == 3) {
+		if (lines.length == 3 || (lines.length == 4 && lines(3).length == 0)) {
 			BenignErrorCorrector.instance.correct(lines)
 		}
 
