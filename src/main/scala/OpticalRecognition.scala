@@ -9,14 +9,12 @@ case class OpticalRecognition() {
 }
 
 object OpticalRecognition {
-	val groupSize = 3
-
 	def main(args: Array[String]): Unit = {
 		// TODO: Take standard input and write to file, then read it
 		val	fileName = "hw10a.in.txt"
 		val lines = Validator.instance.lines(fileName)
-
-
+		val benignLines = Validator.instance.benignLines(lines)
+		val parsedNumbers = Validator.instance.parsedNumbers(benignLines)
 
 
 //		constructNumbersFromFile(fileName) match {
@@ -114,13 +112,6 @@ object OpticalRecognition {
 
 	/* Constructs numbers out of each line by splitting in groups of 3 */
 	private def linesToNumbers(lines: Array[Array[Char]]): List[ParsedNumber] = {
-		val benignLines = correctBenignErrorsIn(lines.clone)
-
-		val topGroup = groupedLine(benignLines.head, groupSize)
-		val middleGroup = groupedLine(benignLines(1), groupSize)
-		val bottomGroup = groupedLine(benignLines.last, groupSize)
-
-		val parsedNumbers = ListBuffer[ParsedNumber]()
 
 		for (i <- topGroup.indices) {
 			parsedNumbers += parsedNumber(topGroup(i), middleGroup(i), bottomGroup(i))
@@ -129,30 +120,6 @@ object OpticalRecognition {
 		parsedNumbers.toList
 	}
 
-	/* Corrects the benign errors in the lines. A benign error is if a non |, _, or space is encountered.
-	 * For robustness, this character will change into a space, but the error logger will make note of this.
-	 * Named after as a procedure as the main goal of this method is to correct the benign errors in the lines.
-	 * This is more apparent if there is deemed to be many types of benign errors. If this is true, this method
-	 * will be extremely long, consisting of correcting for these errors, hence why it is named procedurally */
-	private def correctBenignErrorsIn(lines: Array[Array[Char]]): Array[Array[Char]] = {
-		val linesCopy = lines.clone
-
-		val validCharacters = " |_"
-
-		linesCopy.map(line => {
-			line.map(char => {
-				if (!validCharacters.contains(char)){
-					Logger.instance.log("Benign value " + char.toString + " was changed to a space")
-					' '
-				}
-				else {
-					char
-				}
-			})
-		})
-
-		linesCopy
-	}
 
 	/* Groups a given line from the text file by a grouping size, and return a list of these groups.
 	 * Used in linesToNumbers to construct numbers in groups of 3 */
