@@ -4,8 +4,8 @@ There are not 3 lines in the input
 No benign lines could be formed from the input
 stuff
 File not found: thisFileDoesntExist.txt
-Benign value . was changed to a space
 Benign value t was changed to a space
+Benign value . was changed to a space
 Benign value t was changed to a space
 Benign value e was changed to a space
 Benign value s was changed to a space
@@ -52,3 +52,4 @@ Benign value s was changed to a space
 Benign value t was changed to a space
 No benign lines could be formed from the input
 Lines are all not length 27. Error: Not 9 digits long
+A segment is in the wrong spot at an index of: 0. Error: Extra segment(s)

@@ -5,7 +5,6 @@ import java.io._
 import java.nio.file._
 class OpticalRecognitionTest extends FlatSpec{
 
-
 	// Structured basis: nominal case
 	// Bad data: input only contains quit, no numbers
 	behavior of "main method"
