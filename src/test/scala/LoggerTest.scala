@@ -2,7 +2,6 @@ package number_recognition
 
 import org.scalatest.FlatSpec
 import java.io._
-import java.nio.file._
 
 class LoggerTest extends FlatSpec{
 
