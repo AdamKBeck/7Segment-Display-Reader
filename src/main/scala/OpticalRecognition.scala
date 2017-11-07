@@ -18,6 +18,7 @@ object OpticalRecognition {
 
 			breakable {
 				while (true) {
+					// If the user never enters anything, the code will hang, hence why soverage claims I didn't test this "branch"
 					val line = stdIn.nextLine()
 					if (line == "quit") {
 						break
