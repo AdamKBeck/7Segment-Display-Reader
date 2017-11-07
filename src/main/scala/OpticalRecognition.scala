@@ -15,6 +15,13 @@ object OpticalRecognition {
 		val lines = Validator.instance.lines(fileName)
 		val benignLines = Validator.instance.benignLines(lines)
 		val parsedNumbers = Validator.instance.parsedNumbers(benignLines)
+		val output = Validator.instance.constructNumbersFrom(parsedNumbers)
+
+		/* Although parsed numbers can form, we could still have a severe error.
+		 * A segment could have been in the wrong spot (index 0 and 2) */
+
+
+
 
 
 //		constructNumbersFromFile(fileName) match {
@@ -23,58 +30,6 @@ object OpticalRecognition {
 //		}
 	}
 
-	/* Reads the input file and constructs numbers from the segments in the file.
-	 * Named as a procedure as this bulk and primary purpose of this function is to parse/decode the numbers.
-	 * Finally, after all of this, we return the number, or a string representing the type of failure
-	 */
-
-	private def constructNumbersFromFile(fileName: String): Either[List[Int], String] = {
-		// Read file and parse numbers
-		val reader = FileReader.instance
-		val lines = reader.lines(fileName)
-		val numbers = linesToNumbers(lines)
-
-		val cache = ValidNumbers.numberCache
-
-		// Setup a list of numbers from the file, and a counter for ambiguous and defected numbers
-		val numbersFromFile = ListBuffer[Int]()
-		var defectedCount = 0
-		var ambiguousCount = 0
-
-		// Note if each number is ambiguous, defected, both, or neither (append this valid number to our list)
-		for (parsedNumber <- numbers) {
-			val number = ValidNumbers.booleanSegmentedNumber(parsedNumber.segments)
-
-			// Filter the cache against the segments we have, and see what remains in the cache
-			val keys = cache.keySet
-			val possibleMatch = cache.getOrElse(number, None)
-
-			// If the cache didn't contain, this parsed number, determine if it's ambiguous or if we can deduce what it is
-			if (possibleMatch == None) {
-				defectedCount += 1
-				logIfEmpty(number)
-
-				var remaining = keys.filter(k => isSegmentSubset(number, k))
-
-				// If this number is a subset of multiple numbers, there's no number we can deduce from the missing segments
-				if (remaining.size > 1) {
-					ambiguousCount += 1
-				}
-
-				// This number must be a subset of the 8, so get it, and append 8 to our list
-				else {
-					numbersFromFile += cache(remaining.head)
-				}
-			}
-
-			// If the cahche contained this parsed number, append the number as an int to our list
-			else {
-				numbersFromFile += cache(number)
-			}
-		}
-
-		opticalRecognitionOutcome(Logger.instance.severeError, defectedCount, ambiguousCount, numbersFromFile)
-	}
 
 	// Returns the outcome of the optial recognition based on the error severity, defected count, ambiguous count, and parsed numbers
 	private def opticalRecognitionOutcome(severeError: Boolean, defectedCount: Int,
@@ -109,55 +64,6 @@ object OpticalRecognition {
 			Logger.markSevereError()
 		}
 	}
-
-	/* Constructs numbers out of each line by splitting in groups of 3 */
-	private def linesToNumbers(lines: Array[Array[Char]]): List[ParsedNumber] = {
-
-		for (i <- topGroup.indices) {
-			parsedNumbers += parsedNumber(topGroup(i), middleGroup(i), bottomGroup(i))
-		}
-
-		parsedNumbers.toList
-	}
-
-
-	/* Groups a given line from the text file by a grouping size, and return a list of these groups.
-	 * Used in linesToNumbers to construct numbers in groups of 3 */
-	private def groupedLine(line: Array[Char], size: Int): List[Array[Char]] = line.grouped(size).toList
-
-
-	/* Returns a ParsedNumber number given the top, middle, and bottom parts of the number in the input file */
-	private def parsedNumber(top: Array[Char], middle: Array[Char], bottom: Array[Char]): ParsedNumber = {
-		val segments = ListBuffer[Int]()
-
-		val charsWithIndices = {
-			top.zip(Array(0,1,2)) ++ middle.zip(Array(3,4,5)) ++ bottom.zip(Array(6,7,8))
-		}
-
-		for ((char, index) <- charsWithIndices) {
-			if (isSegmentSymbolValid(char)) {
-				checkSegmentPosition(index)
-				segments += indexToSegmentNumber(index)
-			}
-		}
-
-		ParsedNumber(segments.toList)
-	}
-
-	// Logs if a segment index is in an invalid spot
-	private def checkSegmentPosition(index: Int): Unit = {
-		if (index == 0 || index == 2) {
-			Logger.instance.log("A segment is in the wrong spot at an index of: " + index)
-			Logger.markSevereError()
-		}
-	}
-
-	// Determines if a character from the input file is a valid segment character
-	private def isSegmentSymbolValid(char: Char): Boolean = char == '|' || char == '_'
-
-	/* Converts the index a character was found in a top, middle, bottom group to the correct segment index
-	 * Method written in ternary syntax style https://alvinalexander.com/scala/scala-ternary-operator-syntax */
-	private def indexToSegmentNumber(index: Int): Int = if (index > 2) index - 1 else index
 
 	/* Determines if a parsedNumber is a segment sebset of validNumber, that is, if
 	 * all the true values in parsedNumber appear in validNumber */
