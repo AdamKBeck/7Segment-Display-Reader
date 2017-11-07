@@ -52,12 +52,7 @@ case class NumberConstructor private() {
 
 	// Determines if a number is empty, that is, a number has no segments. Log this, as this is an error
 	private def logIfEmpty(number: List[Boolean]): Unit = {
-		var isEmpty = true
-		for (boolean <- number) {
-			if (boolean) {
-				isEmpty = false
-			}
-		}
+		var isEmpty = !number.contains(true)
 
 		if (isEmpty) {
 			Logger.instance.log("A digit is empty (invisible and missing). Error: Not 9 digits long")

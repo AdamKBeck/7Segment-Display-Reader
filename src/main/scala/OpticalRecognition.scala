@@ -3,7 +3,6 @@ package number_recognition
 import java.io.BufferedInputStream
 import java.util.Scanner
 import scala.util.control.Breaks._
-import java.io.FileWriter
 
 /* This class contains the main method to launch the application. This program reads in an input file
  * parses the 7 segmented numbers in the input file, and tries to construct the number these segments represent */
