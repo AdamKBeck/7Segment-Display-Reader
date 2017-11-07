@@ -1,1 +1,49 @@
-Benign value . was changed to a space
+File not found: testFile.txt
+File not found: thisFileDoesntExist.txt
+Benign value t was changed to a space
+Benign value t was changed to a space
+Benign value e was changed to a space
+Benign value s was changed to a space
+Benign value t was changed to a space
+Benign value a was changed to a space
+Benign value n was changed to a space
+Benign value o was changed to a space
+Benign value t was changed to a space
+Benign value h was changed to a space
+Benign value e was changed to a space
+Benign value r was changed to a space
+Benign value t was changed to a space
+Benign value e was changed to a space
+Benign value s was changed to a space
+Benign value t was changed to a space
+Benign value y was changed to a space
+Benign value e was changed to a space
+Benign value t was changed to a space
+Benign value a was changed to a space
+Benign value n was changed to a space
+Benign value o was changed to a space
+Benign value t was changed to a space
+Benign value h was changed to a space
+Benign value e was changed to a space
+Benign value r was changed to a space
+Benign value t was changed to a space
+Benign value e was changed to a space
+Benign value s was changed to a space
+Benign value t was changed to a space
+There are not 3 lines in the input
+There are not 3 lines in the input
+There are not 3 lines in the input
+Benign value t was changed to a space
+Benign value e was changed to a space
+Benign value s was changed to a space
+Benign value t was changed to a space
+Benign value t was changed to a space
+Benign value e was changed to a space
+Benign value s was changed to a space
+Benign value t was changed to a space
+Benign value t was changed to a space
+Benign value e was changed to a space
+Benign value s was changed to a space
+Benign value t was changed to a space
+No benign lines could be formed from the input
+Lines are all not length 27. Error: Not 9 digits long
